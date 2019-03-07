@@ -4,6 +4,27 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.h6 {
+    font-size: 14px;
+}
+
 .navigation-menu .nav-link {
     color: #ffffffe8 !important;
+}
+
+.campground-new-form .form-group {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.img-box {
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    box-shadow: 0px 1px 1px 1px #0000001f;
+    transition: .5s;
+}
+
+.img-box:hover {
+    transform: translateY(-20px);
+    transition: .5s;
 }

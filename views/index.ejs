@@ -1,8 +1,24 @@
 <% include partials/header %>
 
-<div class="container jumbotron">
+<div class="container jumbotron mb-5">
     <h2 class='display-4'>Welcome To YelpCamp!</h2>
     <h5 class='font-weight-normal mb-3'>View our hand-picked campgrounds from all over the world</h5 class='font-weight-normal'>
     <a href="/campgrounds/new" class='btn btn-primary'> Add New Campground </a>
 </div>
 
+
+<div class='container pl-0 mb-5'>
+    <div class='row'>
+        <% campground.forEach(function(camp){ %>
+        <div class='col-md-4 mb-5'>
+            <div class='img-box'>
+            <img class='img-fluid mb-2' src=" <%= camp.image %>" alt="">
+          <h5>  <%= camp.title %> </h5>
+            <p class='mb-2'> <%= camp.description.substring(0, 120) %>... </p>
+            <p class='h6 mb-3'> <%= camp.date.toDateString() %></p>
+            <a href="/campgrounds/<%= camp._id %>" class='btn btn-outline-primary mb-2'> Explore More</a>
+        </div>
+    </div>
+        <% }) %>
+    </div>
+</div>

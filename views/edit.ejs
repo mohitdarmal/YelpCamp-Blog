@@ -1,22 +1,20 @@
 <% include partials/header %>
 
 <div class='container mt-5 campground-new-form'>
-    <form action="/campgrounds" method="POST">
+    <form action="/campgrounds/<%= blog._id %>?_method=PUT" method="POST">
         <div class="form-group mb-4">
             <label for="exampleInputEmail1">Enter YelpCamp Name</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name"
-                name="blog[title]">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="blog[title]" value="<%= blog.title %>">
         </div>
 
         <div class="form-group mb-4">
             <label for="exampleInputEmail1">Enter Image Url</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Url"
-                name="blog[image]">
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="blog[image]" value='<%= blog.image %>'>
         </div>
 
         <div class="form-group mb-4">
             <label for="exampleInputEmail1"> Enter YelpCamp Description </label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="blog[description]"> </textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="blog[description]"> <%= blog.description %> </textarea>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-lg btn-primary">Submit</button>

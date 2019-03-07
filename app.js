@@ -1,10 +1,20 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+const methodOveride = require('method-override');
+const {ObjectID} =require('mongodb');
 
 
 //============================App Config=================================
 app.set('view engine', 'ejs');
-app.use(express.static('public'))
+app.use(express.static('public'));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(methodOveride('_method'));
+// parse application/json
+app.use(bodyParser.json())
 
 /* var Campground = [
     {
@@ -21,12 +31,17 @@ app.use(express.static('public'))
 
 //==========================Mongoose Config================================
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/YelpCamp-Blog', {useNewUrlParser : true});
+mongoose.connect('mongodb://localhost:27017/YelpCamp-Blog', {
+    useNewUrlParser: true
+});
 var CapmgorundSchema = new mongoose.Schema({
-    title : String,
-    image : String,
-    description : String,
-    date : {type : Date, default : Date.now()}
+    title: String,
+    image: String,
+    description: String,
+    date: {
+        type: Date,
+        default: Date.now()
+    }
 });
 var Campground = mongoose.model('Campground', CapmgorundSchema);
 
@@ -40,11 +55,75 @@ app.get('/', (req, res) => {
 
 
 app.get('/campgrounds', (req, res) => {
-    res.render('index');
+
+    Campground.find({}, (err, result) => {
+        if (err) {
+            return console.log(err);
+        }
+        res.render('index', {campground : result});
+    });
+});
+
+app.post('/campgrounds', (req, res) => {
+    var data = req.body.blog;
+    Campground.create(data, (err, result) => {
+        if (err) {
+            return console.log(err);
+        }
+        res.redirect('/campgrounds');
+    });
+    console.log(data)
 });
 
 app.get('/campgrounds/new', (req, res) => {
     res.render('new');
+});
+
+app.get('/campgrounds/:id', (req, res) => {
+    var id = req.params.id;
+  
+    if(!ObjectID.isValid(id)){
+        return res.send('There is no detail about this Campground! ID is Invalid');
+    }
+    Campground.findById(id, (err, result) => {
+        if(err){
+            return console.log(err);
+        }
+        res.render('detail', {camp : result});
+    });
+});
+
+app.get('/campgrounds/:id/edit', (req, res) => {
+    var id = req.params.id;
+    Campground.findById(id, (err, result) => {
+        if(err){
+            return console.log(err);
+        }
+        res.render('edit', {blog : result});
+    })
+    // res.render('edit', {});
+});
+
+app.put('/campgrounds/:id', (req, res) => {
+    var id = req.params.id;
+    var data = req.body.blog;
+    console.log(req.body.title)
+    Campground.findByIdAndUpdate(id, data, (err, result) => {
+        if(err){
+            return console.log(err);
+        }
+        res.redirect('/campgrounds/' + id);
+    });
+});
+
+app.delete('/campgrounds/:id', (req, res) => {
+    Campground.findByIdAndDelete(req.params.id, (err, result) => {
+        if(err){
+            return console.log(err);
+        }
+        res.redirect('/campgrounds');
+        console.log(result);
+    });
 });
 
 

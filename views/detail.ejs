@@ -1,0 +1,32 @@
+<% include partials/header %>
+
+<div class='container pl-0 my-5'>
+    <div class='row'>
+        <div class='col-md-12'>
+            <img class='img-fluid mb-2' src=" <%= camp.image %>" alt="">
+            <h4>
+                <%= camp.title %>
+            </h4>
+            <p class='mb-3 text-justify'>
+                <%= camp.description %>
+            </p>
+            <p class='h6 mb-3'>
+                <%= camp.date.toDateString() %>
+            </p>
+            <div style='float:left' class='mr-3'>
+                <a href="/campgrounds/<%= camp._id%>/edit" class='btn btn-outline-primary  '> Edit </a>
+            </div>
+
+            <div style='float:left'>
+                <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
+                    <button href="" class='btn btn-outline-danger'> Delete </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!--  <a href="/campgrounds/<%= camp._id %>" class='btn btn-outline-primary mb-2'> Explore More</a> -->
