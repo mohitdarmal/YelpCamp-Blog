@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const methodOveride = require('method-override');
 const {ObjectID} =require('mongodb');
+const port = process.env.PORT || 3000;
 
 
 //============================App Config=================================
@@ -127,6 +128,6 @@ app.delete('/campgrounds/:id', (req, res) => {
 });
 
 
-app.listen(4000, () => {
-    console.log('App Has Started on Port 4000');
+app.listen(port, () => {
+    console.log(`App Has Started on Port ${port}`);
 });
