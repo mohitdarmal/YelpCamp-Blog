@@ -33,7 +33,7 @@ app.use(bodyParser.json())
 
 //==========================Mongoose Config================================
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/YelpCamp-Blog', {
+mongoose.connect('mongodb+srv://Mohit-Yelp:Mohit@321@yelpcamp-blog-gysio.mongodb.net/test?retryWrites=true || mongodb://localhost:27017/YelpCamp-Blog', {
     useNewUrlParser: true
 });
 var CapmgorundSchema = new mongoose.Schema({
